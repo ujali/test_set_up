@@ -4,7 +4,7 @@ import Constants._
 import DataStore._
 
 object ChannelAllocation {
-  val helper = new Helpers
+  val channelManger: ChannelManager = new ChannelManager
 
   def main(args: Array[String]): Unit = {
     println(s"CHANNEL_ONE_ID $CHANNEL_ONE_ID \n")
@@ -16,7 +16,7 @@ object ChannelAllocation {
 
     channels foreach { channel => println(s"Initial channel allocation :- $channel \n") }
 
-    helper.followRequest(Following(CHANNEL_ONE_ID, USER_TWO_ID))
+    channelManger.followRequest(Following(CHANNEL_ONE_ID, USER_TWO_ID))
 
     channels foreach { channel => println(s"New allocation :- $channel \n") }
   }

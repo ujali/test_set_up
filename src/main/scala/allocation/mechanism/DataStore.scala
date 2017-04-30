@@ -9,10 +9,11 @@ import scala.collection.mutable.{MutableList => MList}
   */
 class DataStore {
 
+  //TODO remove var
   var channels: MList[Channel] =
-    MList(Channel(CHANNEL_ONE_ID, "channel_one", Some("ph_number_one")),
-      Channel(CHANNEL_TWO_ID, "channel_two", Some("ph_number_one")),
-      Channel(CHANNEL_THREE_ID, "channel_three", Some("ph_number_one")))
+  MList(Channel(CHANNEL_ONE_ID, "channel_one", Some("ph_number_one")),
+    Channel(CHANNEL_TWO_ID, "channel_two", Some("ph_number_one")),
+    Channel(CHANNEL_THREE_ID, "channel_three", Some("ph_number_one")))
 
   val users: MList[User] = MList(User(USER_ONE_ID, "user_one"), User(USER_TWO_ID, "user_two"))
 

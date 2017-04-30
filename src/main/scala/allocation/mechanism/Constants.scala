@@ -16,7 +16,3 @@ object Constants {
 
   val EMPTY_STRING = ""
 }
-
-
-
-

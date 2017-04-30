@@ -9,7 +9,7 @@ import scala.collection.mutable.{MutableList => MList}
 /**
   * Created by asteroid-m on 1/5/17.
   */
-class Helpers {
+class ChannelManager {
 
   def followRequest(following: Following): MList[Following] = {
     followings += following
