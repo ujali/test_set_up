@@ -39,11 +39,11 @@ class ChannelManager {
 
         channels = channels.diff(channels.filter(_.id == toBeChanged.id))
 
-        val conflictOrNot: List[Boolean] = (phoneNumberChannelMap map {
+        val conflictCheck: List[Boolean] = (phoneNumberChannelMap map {
           case (k, v) => doesConflictExist(toBeChanged.id, k.fold("")(identity), v)
         }).toList
 
-        channels += toBeChanged.copy(phoneNumber = if (conflictOrNot.contains(true)) unassignedNumbers.headOption else number)
+        channels += toBeChanged.copy(phoneNumber = if (conflictCheck.contains(true)) unassignedNumbers.headOption else number)
     }.toList
 
     followings
