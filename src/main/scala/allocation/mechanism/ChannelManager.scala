@@ -49,8 +49,7 @@ class ChannelManager {
           channels += channel.copy(phoneNumber = if (conflictCheck.contains(true)) unassignedNumbers.headOption else number)
         }.toList
     }
-
-
+    
     followings
   }
 
