@@ -30,12 +30,10 @@ class ChannelManager {
     val assignedNumbers: List[String] = phoneNumberChannelMap
       .map { case (number, channel) => number }
       .map(_.fold(EMPTY_STRING)(identity)).toList
-
     val unassignedNumbers: MList[String] = phoneNumbers.map(_.number).diff(assignedNumbers)
-
     collisionData.flatMap {
       case (number, channel) =>
-        val optionalChannel: Option[Channel] = getLeastUsedChannel(channel)
+        val optionalChannel: Option[Channel] = getLeastUsedChannel
 
         optionalChannel.fold[MList[Channel]] {
           MList.empty
@@ -45,19 +43,18 @@ class ChannelManager {
           val conflictCheck: List[Boolean] = (phoneNumberChannelMap map {
             case (k, v) => doesConflictExist(channel.id, k.fold("")(identity), v)
           }).toList
-
           channels += channel.copy(phoneNumber = if (conflictCheck.contains(true)) unassignedNumbers.headOption else number)
         }.toList
     }
-    
+
     followings
   }
 
   def doesConflictExist(channelId: UUID, num: String, channels: MList[Channel]) =
     channels flatMap (channel => followings.filter(_.channelId == channel.id).map(_.channelId)) contains channelId
 
-  def getLeastUsedChannel(channels: MList[Channel]): Option[Channel] = {
-    val lowestChannel = followings groupBy (_.channelId) map { case (chanelId, followingList) => (chanelId, followingList.length) } minBy (_._2)
+  def getLeastUsedChannel: Option[Channel] = {
+    val lowestChannel = followings groupBy (_.channelId) minBy (_._2 size)
 
     channels.find(_.id == lowestChannel._1)
   }
