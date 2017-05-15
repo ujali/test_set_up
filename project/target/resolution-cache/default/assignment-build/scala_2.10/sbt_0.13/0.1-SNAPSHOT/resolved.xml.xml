@@ -4,7 +4,7 @@
 		module="assignment-build"
 		revision="0.1-SNAPSHOT"
 		status="integration"
-		publication="20170501045343"
+		publication="20170504125208"
 		e:sbtVersion="0.13" e:scalaVersion="2.10"
 	>
 		<description>

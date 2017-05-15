@@ -24,12 +24,12 @@ class ChannelManager {
     followings.filter(_.userId == userId).map(_.channelId).flatMap(id => channels.filter(_.id == id))
       .groupBy(_.phoneNumber).filter { case (number, channel) => channel.length > 1 }
 
+
   def resolveDataCollision(collisionData: Map[Option[String], MList[Channel]]): MList[Following] = {
     val phoneNumberChannelMap: Map[Option[String], MList[Channel]] = channels.groupBy(_.phoneNumber)
 
-    val assignedNumbers: List[String] = phoneNumberChannelMap
-      .map { case (number, channel) => number }
-      .map(_.fold(EMPTY_STRING)(identity)).toList
+    val assignedNumbers = phoneNumberChannelMap.map { case (number, channel) => number }.toList.flatten
+
     val unassignedNumbers: MList[String] = phoneNumbers.map(_.number).diff(assignedNumbers)
     collisionData.flatMap {
       case (number, channel) =>
